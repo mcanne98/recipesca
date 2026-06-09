@@ -32,9 +32,15 @@ export default function MealPlanCard({ plan, index = 0, variant = "default" }: P
 			<Link to={`/meal-plans/${plan.slug}`} className="block group">
 				<div className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 h-full flex flex-col md:flex-row">
 					{/* Image area */}
-					<div className={`bg-gradient-to-br ${gradient} md:w-2/5 flex-shrink-0 flex items-center justify-center py-16 md:py-0 relative overflow-hidden`}>
-						<div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 30% 70%, white 1px, transparent 1px), radial-gradient(circle at 70% 30%, white 1px, transparent 1px)", backgroundSize: "30px 30px" }} />
-						<span className="text-8xl drop-shadow-md relative z-10">{emoji}</span>
+					<div className="md:w-2/5 flex-shrink-0 relative overflow-hidden">
+						{plan.image ? (
+							<img src={plan.image} alt={plan.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" style={{ minHeight: "200px" }} />
+						) : (
+							<div className={`bg-gradient-to-br ${gradient} w-full h-full flex items-center justify-center py-16 md:py-0 relative`}>
+								<div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 30% 70%, white 1px, transparent 1px), radial-gradient(circle at 70% 30%, white 1px, transparent 1px)", backgroundSize: "30px 30px" }} />
+								<span className="text-8xl drop-shadow-md relative z-10">{emoji}</span>
+							</div>
+						)}
 					</div>
 					{/* Content */}
 					<div className="p-8 flex flex-col justify-center">
@@ -60,9 +66,19 @@ export default function MealPlanCard({ plan, index = 0, variant = "default" }: P
 		<Link to={`/meal-plans/${plan.slug}`} className="block group">
 			<div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 h-full flex flex-col border border-gray-100">
 				{/* Image area */}
-				<div className={`bg-gradient-to-br ${gradient} aspect-[16/9] flex items-center justify-center relative overflow-hidden`}>
-					<div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 25% 75%, white 1px, transparent 1px), radial-gradient(circle at 75% 25%, white 1px, transparent 1px)", backgroundSize: "24px 24px" }} />
-					<span className="text-7xl drop-shadow-md relative z-10">{emoji}</span>
+				<div className="aspect-[16/9] relative overflow-hidden">
+					{plan.image ? (
+						<img
+							src={plan.image}
+							alt={`Key ingredients for ${plan.title}`}
+							className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+						/>
+					) : (
+						<div className={`bg-gradient-to-br ${gradient} w-full h-full flex items-center justify-center relative`}>
+							<div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 25% 75%, white 1px, transparent 1px), radial-gradient(circle at 75% 25%, white 1px, transparent 1px)", backgroundSize: "24px 24px" }} />
+							<span className="text-7xl drop-shadow-md relative z-10">{emoji}</span>
+						</div>
+					)}
 					{/* Prep time badge */}
 					<div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-[#1f2937] text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
 						⏱ {plan.prepTime}
