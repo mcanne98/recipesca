@@ -142,24 +142,32 @@ export default function ShoppingList({ items, planTitle }: Props) {
 
 	return (
 		<div>
-			{/* Multiplier selector */}
-			<div className="flex items-center gap-3 mb-6 flex-wrap">
-				<span className="text-sm font-semibold text-gray-600">Serving size:</span>
-				<div className="flex gap-2">
-					{MULTIPLIERS.map((m) => (
-						<button
-							key={m}
-							onClick={() => setMultiplier(m)}
-							className={`px-4 py-1.5 rounded-full text-sm font-bold transition-colors border ${
-								multiplier === m
-									? "bg-[#e07030] text-white border-[#e07030]"
-									: "bg-white text-gray-600 border-gray-200 hover:border-[#e07030] hover:text-[#e07030]"
-							}`}
-						>
-							{m === 1 ? "1× (default)" : `${m}×`}
-						</button>
-					))}
+			{/* Multiplier selector + select/unselect all */}
+			<div className="flex items-center justify-between gap-3 mb-6 flex-wrap">
+				<div className="flex items-center gap-3 flex-wrap">
+					<span className="text-sm font-semibold text-gray-600">Serving size:</span>
+					<div className="flex gap-2">
+						{MULTIPLIERS.map((m) => (
+							<button
+								key={m}
+								onClick={() => setMultiplier(m)}
+								className={`px-4 py-1.5 rounded-full text-sm font-bold transition-colors border ${
+									multiplier === m
+										? "bg-[#e07030] text-white border-[#e07030]"
+										: "bg-white text-gray-600 border-gray-200 hover:border-[#e07030] hover:text-[#e07030]"
+								}`}
+							>
+								{m === 1 ? "1× (default)" : `${m}×`}
+							</button>
+						))}
+					</div>
 				</div>
+				<button
+					onClick={() => setChecked(checked.size === allKeys.size ? new Set() : new Set(allKeys))}
+					className="text-sm font-semibold text-[#e07030] hover:underline whitespace-nowrap"
+				>
+					{checked.size === allKeys.size ? "Unselect all" : "Select all"}
+				</button>
 			</div>
 
 			{/* Shopping list grid */}
