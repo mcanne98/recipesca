@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import mealPlans from "../data/mealPlans";
 import MealPlanCard from "../components/MealPlanCard";
 
@@ -33,6 +34,82 @@ const stats = [
 	{ number: "100%", label: "Home-cooked" },
 	{ number: "0", label: "Takeout orders" },
 ];
+
+function NewsletterSection() {
+	const [email, setEmail] = useState("");
+	const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+	const [errorMsg, setErrorMsg] = useState("");
+
+	async function handleSubmit(e: React.FormEvent) {
+		e.preventDefault();
+		if (!email.trim()) return;
+		setStatus("loading");
+		setErrorMsg("");
+		try {
+			const res = await fetch("/api/subscribe", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ email: email.trim() }),
+			});
+			const data = await res.json();
+			if (!res.ok) throw new Error(data.error || "Something went wrong");
+			setStatus("success");
+		} catch (err) {
+			setErrorMsg(err instanceof Error ? err.message : "Something went wrong");
+			setStatus("error");
+		}
+	}
+
+	return (
+		<section className="py-16 px-4 bg-[#faf8f4] border-t border-gray-200">
+			<div className="max-w-2xl mx-auto text-center">
+				<div className="text-5xl mb-5">📬</div>
+				<p className="text-[#e07030] text-sm font-bold uppercase tracking-widest mb-2">Free Recipe Club</p>
+				<h2 className="text-3xl md:text-4xl font-black text-[#1f2937] mb-3">
+					Get next week's meal plan free
+				</h2>
+				<p className="text-gray-500 mb-8 max-w-md mx-auto">
+					New plan every Monday — shopping list, batch prep schedule, and recipe cards. No spam, ever.
+				</p>
+
+				{status === "success" ? (
+					<div className="bg-[#7a9e7e]/10 border border-[#7a9e7e]/30 rounded-2xl px-8 py-6 max-w-md mx-auto">
+						<div className="text-3xl mb-2">🎉</div>
+						<p className="font-black text-[#1f2937] text-lg mb-1">You're in!</p>
+						<p className="text-gray-500 text-sm">Check your inbox — next week's plan drops Monday.</p>
+					</div>
+				) : (
+					<form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+						<input
+							type="email"
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+							placeholder="your@email.com"
+							required
+							disabled={status === "loading"}
+							className="flex-1 border-2 border-gray-200 focus:border-[#e07030] rounded-full px-5 py-3 text-sm focus:outline-none transition-colors disabled:opacity-60"
+						/>
+						<button
+							type="submit"
+							disabled={status === "loading"}
+							className="bg-[#e07030] hover:bg-[#c05a20] disabled:opacity-60 text-white font-bold px-7 py-3 rounded-full text-sm transition-colors shadow-md shadow-orange-100 whitespace-nowrap flex items-center justify-center gap-2"
+						>
+							{status === "loading" ? (
+								<><span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />Subscribing…</>
+							) : "Subscribe Free"}
+						</button>
+					</form>
+				)}
+
+				{status === "error" && (
+					<p className="text-red-500 text-sm mt-3">{errorMsg}</p>
+				)}
+
+				<p className="text-xs text-gray-400 mt-4">Join other parents cooking real food for their kids. Unsubscribe anytime.</p>
+			</div>
+		</section>
+	);
+}
 
 export default function Home() {
 	return (
@@ -255,32 +332,7 @@ export default function Home() {
 			</section>
 
 			{/* ── NEWSLETTER ──────────────────────────────── */}
-			<section className="py-16 px-4 bg-[#faf8f4] border-t border-gray-200">
-				<div className="max-w-2xl mx-auto text-center">
-					<div className="text-5xl mb-5">📬</div>
-					<p className="text-[#e07030] text-sm font-bold uppercase tracking-widest mb-2">Free Recipe Club</p>
-					<h2 className="text-3xl md:text-4xl font-black text-[#1f2937] mb-3">
-						Get next week's meal plan free
-					</h2>
-					<p className="text-gray-500 mb-8 max-w-md mx-auto">
-						New plan every Monday — shopping list, batch prep schedule, and recipe cards. No spam, ever.
-					</p>
-					<div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-						<input
-							type="email"
-							placeholder="your@email.com"
-							className="flex-1 border-2 border-gray-200 focus:border-[#e07030] rounded-full px-5 py-3 text-sm focus:outline-none transition-colors"
-						/>
-						<Link
-							to="/contact"
-							className="bg-[#e07030] hover:bg-[#c05a20] text-white font-bold px-7 py-3 rounded-full text-sm transition-colors shadow-md shadow-orange-100 whitespace-nowrap"
-						>
-							Subscribe Free
-						</Link>
-					</div>
-					<p className="text-xs text-gray-400 mt-4">Join other parents cooking real food for their kids. Unsubscribe anytime.</p>
-				</div>
-			</section>
+			<NewsletterSection />
 
 		</div>
 	);
