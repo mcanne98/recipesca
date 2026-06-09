@@ -172,9 +172,14 @@ export default function Home() {
 						<div className="absolute top-2 right-2 left-2 bottom-0 bg-[#e07030]/5 rounded-3xl -rotate-1" />
 						{/* Main preview card */}
 						<div className="relative bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
-							<div className="bg-gradient-to-br from-[#e07030] via-[#f09040] to-[#f5b86e] h-48 flex items-center justify-center relative overflow-hidden">
-								<div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 30% 70%, white 1px, transparent 1px)", backgroundSize: "20px 20px" }} />
-								<span className="text-8xl drop-shadow-md">🍗</span>
+							<div className="h-48 relative overflow-hidden">
+								{mealPlans[0].image ? (
+									<img src={mealPlans[0].image} alt={mealPlans[0].title} className="w-full h-full object-cover" />
+								) : (
+									<div className="bg-gradient-to-br from-[#e07030] via-[#f09040] to-[#f5b86e] w-full h-full flex items-center justify-center">
+										<span className="text-8xl drop-shadow-md">🍗</span>
+									</div>
+								)}
 								<div className="absolute top-3 right-3 bg-white/90 text-[#1f2937] text-xs font-bold px-3 py-1 rounded-full">
 									⏱ 3.5 hours
 								</div>
