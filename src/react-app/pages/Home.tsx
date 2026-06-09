@@ -122,6 +122,10 @@ function NewsletterSection() {
 	);
 }
 
+const latestPlan = [...mealPlans].sort(
+	(a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+)[0];
+
 export default function Home() {
 	return (
 		<div className="bg-[#faf8f4]">
@@ -173,28 +177,29 @@ export default function Home() {
 						{/* Main preview card */}
 						<div className="relative bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
 							<div className="h-48 relative overflow-hidden">
-								{mealPlans[0].image ? (
-									<img src={mealPlans[0].image} alt={mealPlans[0].title} className="w-full h-full object-cover" />
+								{latestPlan.image ? (
+									<img src={latestPlan.image} alt={latestPlan.title} className="w-full h-full object-cover" />
 								) : (
 									<div className="bg-gradient-to-br from-[#e07030] via-[#f09040] to-[#f5b86e] w-full h-full flex items-center justify-center">
 										<span className="text-8xl drop-shadow-md">🍗</span>
 									</div>
 								)}
 								<div className="absolute top-3 right-3 bg-white/90 text-[#1f2937] text-xs font-bold px-3 py-1 rounded-full">
-									⏱ 3.5 hours
+									⏱ {latestPlan.prepTime}
 								</div>
 							</div>
 							<div className="p-6">
 								<span className="text-xs text-[#e07030] font-bold uppercase tracking-widest">This week's plan</span>
-								<h3 className="text-xl font-black text-[#1f2937] mt-1 mb-2">The Protein-Packed Week</h3>
-								<p className="text-gray-500 text-sm mb-4">High-energy meals to fuel your kids all week long</p>
-								<div className="flex gap-3 text-xs">
-									<span className="bg-[#e07030] text-white px-2.5 py-1 rounded-full font-semibold">High Protein</span>
-									<span className="bg-yellow-400 text-[#1f2937] px-2.5 py-1 rounded-full font-semibold">Kid Approved</span>
+								<h3 className="text-xl font-black text-[#1f2937] mt-1 mb-2">{latestPlan.title}</h3>
+								<p className="text-gray-500 text-sm mb-4">{latestPlan.subtitle}</p>
+								<div className="flex gap-3 text-xs flex-wrap">
+									{latestPlan.tags.slice(0, 2).map((tag) => (
+										<span key={tag} className="bg-[#e07030] text-white px-2.5 py-1 rounded-full font-semibold">{tag}</span>
+									))}
 								</div>
 								<div className="mt-4 pt-4 border-t border-gray-100 grid grid-cols-3 gap-3 text-center">
-									<div><div className="font-black text-[#1f2937]">21</div><div className="text-xs text-gray-400">meals</div></div>
-									<div><div className="font-black text-[#1f2937]">4</div><div className="text-xs text-gray-400">recipes</div></div>
+									<div><div className="font-black text-[#1f2937]">{latestPlan.mealCount}</div><div className="text-xs text-gray-400">meals</div></div>
+									<div><div className="font-black text-[#1f2937]">{latestPlan.recipes.length}</div><div className="text-xs text-gray-400">recipes</div></div>
 									<div><div className="font-black text-[#1f2937]">1</div><div className="text-xs text-gray-400">prep session</div></div>
 								</div>
 							</div>
