@@ -11,5 +11,15 @@
 	"assets": {
 		"directory": "./dist/client",
 		"not_found_handling": "single-page-application"
+	},
+	"kv_namespaces": [
+		{
+			"binding": "WOWOK_DATA",
+			"id": "513363df83f445a69b5327c1fdd620dc",
+			"preview_id": "adbcb41082b449fe89a5fc0ced53c45e"
+		}
+	],
+	"vars": {
+		"NOTIFICATION_EMAIL": "ourlittlejar@gmail.com"
 	}
 }
