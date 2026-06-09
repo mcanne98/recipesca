@@ -36,20 +36,20 @@ const stats = [
 ];
 
 function NewsletterSection() {
+	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 	const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 	const [errorMsg, setErrorMsg] = useState("");
 
 	async function handleSubmit(e: React.FormEvent) {
 		e.preventDefault();
-		if (!email.trim()) return;
 		setStatus("loading");
 		setErrorMsg("");
 		try {
 			const res = await fetch("/api/subscribe", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ email: email.trim() }),
+				body: JSON.stringify({ name: name.trim(), email: email.trim() }),
 			});
 			const data = await res.json();
 			if (!res.ok) throw new Error(data.error || "Something went wrong");
@@ -79,20 +79,31 @@ function NewsletterSection() {
 						<p className="text-gray-500 text-sm">Check your inbox — next week's plan drops Monday.</p>
 					</div>
 				) : (
-					<form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-						<input
-							type="email"
-							value={email}
-							onChange={(e) => setEmail(e.target.value)}
-							placeholder="your@email.com"
-							required
-							disabled={status === "loading"}
-							className="flex-1 border-2 border-gray-200 focus:border-[#e07030] rounded-full px-5 py-3 text-sm focus:outline-none transition-colors disabled:opacity-60"
-						/>
+					<form onSubmit={handleSubmit} className="flex flex-col gap-3 max-w-md mx-auto">
+						<div className="flex flex-col sm:flex-row gap-3">
+							<input
+								type="text"
+								value={name}
+								onChange={(e) => setName(e.target.value)}
+								placeholder="Your name"
+								required
+								disabled={status === "loading"}
+								className="flex-1 border-2 border-gray-200 focus:border-[#e07030] rounded-full px-5 py-3 text-sm focus:outline-none transition-colors disabled:opacity-60"
+							/>
+							<input
+								type="email"
+								value={email}
+								onChange={(e) => setEmail(e.target.value)}
+								placeholder="your@email.com"
+								required
+								disabled={status === "loading"}
+								className="flex-1 border-2 border-gray-200 focus:border-[#e07030] rounded-full px-5 py-3 text-sm focus:outline-none transition-colors disabled:opacity-60"
+							/>
+						</div>
 						<button
 							type="submit"
 							disabled={status === "loading"}
-							className="bg-[#e07030] hover:bg-[#c05a20] disabled:opacity-60 text-white font-bold px-7 py-3 rounded-full text-sm transition-colors shadow-md shadow-orange-100 whitespace-nowrap flex items-center justify-center gap-2"
+							className="bg-[#e07030] hover:bg-[#c05a20] disabled:opacity-60 text-white font-bold px-7 py-3 rounded-full text-sm transition-colors shadow-md shadow-orange-100 flex items-center justify-center gap-2"
 						>
 							{status === "loading" ? (
 								<><span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />Subscribing…</>
