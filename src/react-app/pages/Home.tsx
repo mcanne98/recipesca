@@ -5,12 +5,18 @@ import MealPlanCard from "../components/MealPlanCard";
 
 // Mini recipe preview card
 function RecipePreviewCard({
-	emoji, name, mealType, time, tag,
-}: { emoji: string; name: string; mealType: string; time: string; tag: string }) {
+	image, emoji, name, mealType, time, tag,
+}: { image?: string; emoji: string; name: string; mealType: string; time: string; tag: string }) {
 	return (
 		<Link to="/recipes" className="group block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md border border-gray-100 transition-all duration-300">
-			<div className="bg-[#faf8f4] aspect-square flex items-center justify-center text-5xl group-hover:scale-110 transition-transform duration-300">
-				{emoji}
+			<div className="aspect-square overflow-hidden">
+				{image ? (
+					<img src={image} alt={name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+				) : (
+					<div className="bg-[#faf8f4] w-full h-full flex items-center justify-center text-5xl group-hover:scale-110 transition-transform duration-300">
+						{emoji}
+					</div>
+				)}
 			</div>
 			<div className="p-4">
 				<span className="text-xs text-[#e07030] font-bold uppercase tracking-wide">{mealType} · {time}</span>
@@ -22,10 +28,10 @@ function RecipePreviewCard({
 }
 
 const featuredRecipes = [
-	{ emoji: "🍗", name: "Sheet Pan Chicken & Roasted Broccoli", mealType: "Dinner", time: "40 min", tag: "Kid Approved" },
-	{ emoji: "🌮", name: "Simple Beef Tacos", mealType: "Dinner", time: "20 min", tag: "Quick Prep" },
-	{ emoji: "🥣", name: "Overnight Oats", mealType: "Breakfast", time: "5 min", tag: "Kid Approved" },
-	{ emoji: "🥣", name: "Homemade Chicken Soup", mealType: "Dinner", time: "55 min", tag: "Freezer Friendly" },
+	{ image: "/images/recipes/sheet-pan-chicken-broccoli.jpg", emoji: "🍗", name: "Sheet Pan Chicken & Roasted Broccoli", mealType: "Dinner", time: "40 min", tag: "Kid Approved" },
+	{ image: "/images/recipes/simple-beef-tacos.jpg", emoji: "🌮", name: "Simple Beef Tacos", mealType: "Dinner", time: "20 min", tag: "Quick Prep" },
+	{ image: "/images/recipes/overnight-oats.jpg", emoji: "🥣", name: "Overnight Oats", mealType: "Breakfast", time: "5 min", tag: "Kid Approved" },
+	{ image: "/images/recipes/homemade-chicken-soup.jpg", emoji: "🥣", name: "Homemade Chicken Soup", mealType: "Dinner", time: "55 min", tag: "Freezer Friendly" },
 ];
 
 const stats = [
