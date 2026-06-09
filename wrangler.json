@@ -11,5 +11,15 @@
 	"assets": {
 		"directory": "./dist/client",
 		"not_found_handling": "single-page-application"
+	},
+	"kv_namespaces": [
+		{
+			"binding": "WOWOK_DATA",
+			"id": "REPLACE_WITH_KV_NAMESPACE_ID",
+			"preview_id": "REPLACE_WITH_KV_PREVIEW_NAMESPACE_ID"
+		}
+	],
+	"vars": {
+		"NOTIFICATION_EMAIL": "REPLACE_WITH_YOUR_EMAIL"
 	}
 }
