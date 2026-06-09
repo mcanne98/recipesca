@@ -15,8 +15,8 @@
 	"kv_namespaces": [
 		{
 			"binding": "WOWOK_DATA",
-			"id": "REPLACE_WITH_KV_NAMESPACE_ID",
-			"preview_id": "REPLACE_WITH_KV_PREVIEW_NAMESPACE_ID"
+			"id": "513363df83f445a69b5327c1fdd620dc",
+			"preview_id": "adbcb41082b449fe89a5fc0ced53c45e"
 		}
 	],
 	"vars": {
