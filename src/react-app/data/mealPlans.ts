@@ -6,6 +6,7 @@ export const mealPlans: MealPlan[] = [
 		slug: "protein-packed-week",
 		title: "The Protein-Packed Week",
 		subtitle: "High-energy meals to fuel your kids all week long",
+		image: "/images/meal-plans/protein-packed-week.png",
 		intro:
 			"This was one of those weeks where the kids had sports every single day and I needed meals that would keep them going. Eggs, chicken, and ground beef carried the whole week. Everything batch-cooked in under 4 hours on Sunday afternoon while they were at the park.",
 		prepTime: "3.5 hours",
@@ -185,6 +186,7 @@ export const mealPlans: MealPlan[] = [
 		slug: "budget-friendly-week",
 		title: "The Budget-Friendly Week",
 		subtitle: "Real food for the whole family under $120",
+		image: "/images/meal-plans/budget-friendly-week.png",
 		intro:
 			"Money was a bit tight this week so I challenged myself to keep the grocery bill under $120 for 4 people, 7 days. Beans, eggs, a whole chicken, and pasta are your best friends. I pulled it off at $108 and everyone ate well. Here's exactly how.",
 		prepTime: "3 hours",

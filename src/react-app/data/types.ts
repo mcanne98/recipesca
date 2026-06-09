@@ -57,6 +57,7 @@ export interface MealPlan {
 	slug: string;
 	title: string;
 	subtitle: string;
+	image?: string;
 	intro: string;
 	prepTime: string;
 	familySize: string;

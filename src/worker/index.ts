@@ -11,7 +11,17 @@ import { cors } from "hono/cors";
 interface AppEnv {
 	WOWOK_DATA: KVNamespace;
 	RESEND_API_KEY?: string;
+	/** Where owner notifications are sent. Must be the Resend account email until a domain is verified. */
 	NOTIFICATION_EMAIL?: string;
+	/**
+	 * The "from" address for outgoing email.
+	 * ─ Before domain verification: leave unset → falls back to "onboarding@resend.dev"
+	 *   (only delivers to the Resend account owner's email)
+	 * ─ After verifying cedricanne.com in Resend dashboard:
+	 *   set to "Week On Week Off Kitchen <hello@cedricanne.com>"
+	 *   then NOTIFICATION_EMAIL can be any address (e.g. ourlittlejar@gmail.com)
+	 */
+	FROM_EMAIL?: string;
 }
 
 const app = new Hono<{ Bindings: AppEnv }>();
@@ -61,6 +71,7 @@ app.post("/api/subscribe", async (c) => {
 			// Notification to site owner
 			sendEmail({
 				apiKey: c.env.RESEND_API_KEY,
+				from: c.env.FROM_EMAIL ?? "Week On Week Off Kitchen <onboarding@resend.dev>",
 				to: c.env.NOTIFICATION_EMAIL ?? "you@example.com",
 				subject: `🍳 New subscriber: ${name}`,
 				html: `
@@ -73,6 +84,7 @@ app.post("/api/subscribe", async (c) => {
 			// Confirmation to subscriber
 			sendEmail({
 				apiKey: c.env.RESEND_API_KEY,
+				from: c.env.FROM_EMAIL ?? "Week On Week Off Kitchen <onboarding@resend.dev>",
 				to: email,
 				subject: "You're in! 🍳 Week On Week Off Kitchen",
 				html: `
@@ -138,6 +150,7 @@ app.post("/api/contact", async (c) => {
 	if (c.env.RESEND_API_KEY) {
 		await sendEmail({
 			apiKey: c.env.RESEND_API_KEY,
+			from: c.env.FROM_EMAIL ?? "Week On Week Off Kitchen <onboarding@resend.dev>",
 			to: c.env.NOTIFICATION_EMAIL ?? "you@example.com",
 			subject: `💬 New message from ${name}`,
 			replyTo: email,
@@ -166,12 +179,14 @@ app.post("/api/contact", async (c) => {
 // ---------------------------------------------------------------------------
 async function sendEmail({
 	apiKey,
+	from,
 	to,
 	subject,
 	html,
 	replyTo,
 }: {
 	apiKey: string;
+	from: string;
 	to: string;
 	subject: string;
 	html: string;
@@ -184,9 +199,7 @@ async function sendEmail({
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify({
-			// Change to your verified Resend domain sender once set up.
-			// The shared test sender only delivers to the account owner's email.
-			from: "Week On Week Off Kitchen <onboarding@resend.dev>",
+			from,
 			to,
 			subject,
 			html,
