@@ -175,6 +175,82 @@ app.post("/api/contact", async (c) => {
 });
 
 // ---------------------------------------------------------------------------
+// POST /api/share-list
+// Body: { to: string, planTitle: string, multiplier: number,
+//         sections: { category: string, items: string[] }[] }
+// ---------------------------------------------------------------------------
+app.post("/api/share-list", async (c) => {
+	let body: {
+		to?: string;
+		planTitle?: string;
+		multiplier?: number;
+		sections?: { category: string; items: string[] }[];
+	};
+	try {
+		body = await c.req.json();
+	} catch {
+		return c.json({ error: "Invalid JSON body." }, 400);
+	}
+
+	const to = (body.to ?? "").trim().toLowerCase();
+	const planTitle = (body.planTitle ?? "").trim();
+	const multiplier = body.multiplier ?? 1;
+	const sections = body.sections ?? [];
+
+	if (!to) return c.json({ error: "Email address is required." }, 400);
+	if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(to)) {
+		return c.json({ error: "Please enter a valid email address." }, 400);
+	}
+	if (!sections.length) return c.json({ error: "No items to share." }, 400);
+
+	const multiplierLabel = multiplier === 1 ? "" : ` (${multiplier}× portions)`;
+	const sectionsHtml = sections
+		.map(
+			(s) => `
+			<div style="margin-bottom:20px">
+				<h3 style="margin:0 0 8px;color:#e07030;font-size:14px;text-transform:uppercase;letter-spacing:0.05em">${s.category}</h3>
+				<ul style="margin:0;padding-left:20px">
+					${s.items.map((item) => `<li style="margin-bottom:4px;color:#374151">${item}</li>`).join("")}
+				</ul>
+			</div>`
+		)
+		.join("");
+
+	const sectionsText = sections
+		.map((s) => `${s.category.toUpperCase()}\n${s.items.map((i) => `• ${i}`).join("\n")}`)
+		.join("\n\n");
+
+	if (c.env.RESEND_API_KEY) {
+		await sendEmail({
+			apiKey: c.env.RESEND_API_KEY,
+			from: c.env.FROM_EMAIL ?? "Week On Week Off Kitchen <onboarding@resend.dev>",
+			to,
+			subject: `🛒 Shopping list: ${planTitle}${multiplierLabel}`,
+			html: `
+				<div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#1f2937">
+					<h1 style="color:#e07030;margin-bottom:4px">Shopping List</h1>
+					<p style="color:#6b7280;margin-top:0;margin-bottom:28px">
+						${planTitle}${multiplierLabel} — from <strong>Week On Week Off Kitchen</strong>
+					</p>
+					${sectionsHtml}
+					<p style="margin-top:32px;font-size:12px;color:#9ca3af;border-top:1px solid #e5e7eb;padding-top:16px">
+						Sent from <a href="https://weekonweekoff.cedricanne.com" style="color:#e07030">weekonweekoff.cedricanne.com</a>
+					</p>
+				</div>
+			`,
+		}).catch((err) => {
+			console.error("Share list email failed:", err);
+			return c.json({ error: "Failed to send email. Please try again." }, 500);
+		});
+	} else {
+		// No Resend key — still return success in dev
+		console.log("Share list (no Resend key):\n" + sectionsText);
+	}
+
+	return c.json({ success: true });
+});
+
+// ---------------------------------------------------------------------------
 // Resend helper
 // ---------------------------------------------------------------------------
 async function sendEmail({

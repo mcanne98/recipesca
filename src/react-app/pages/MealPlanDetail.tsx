@@ -70,7 +70,7 @@ export default function MealPlanDetail() {
 				<section>
 					<h2 className="text-2xl font-bold text-[#1f2937] mb-2">Shopping List</h2>
 					<p className="text-gray-500 text-sm mb-6">Everything you need. Check off as you go.</p>
-					<ShoppingList items={plan.shoppingList} />
+					<ShoppingList items={plan.shoppingList} planTitle={plan.title} />
 				</section>
 
 				{/* Prep Schedule */}
