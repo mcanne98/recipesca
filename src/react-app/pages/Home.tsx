@@ -181,7 +181,8 @@ export default function Home() {
 						<div className="absolute top-4 right-4 left-4 bottom-0 bg-[#e07030]/10 rounded-3xl rotate-2" />
 						<div className="absolute top-2 right-2 left-2 bottom-0 bg-[#e07030]/5 rounded-3xl -rotate-1" />
 						{/* Main preview card */}
-						<div className="relative bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
+						<Link to={`/meal-plans/${latestPlan.slug}`} className="block group">
+						<div className="relative bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 group-hover:shadow-2xl transition-shadow duration-300">
 							<div className="h-48 relative overflow-hidden">
 								{latestPlan.image ? (
 									<img src={latestPlan.image} alt={latestPlan.title} className="w-full h-full object-cover" />
@@ -210,6 +211,7 @@ export default function Home() {
 								</div>
 							</div>
 						</div>
+					</Link>
 					</div>
 				</div>
 			</section>
