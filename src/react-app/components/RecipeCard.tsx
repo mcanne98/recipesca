@@ -12,7 +12,13 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
 	const totalTime = recipe.prepTime + recipe.cookTime;
 
 	return (
-		<div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col">
+		<div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col">
+			{recipe.image && (
+				<div className="aspect-[4/3] overflow-hidden">
+					<img src={recipe.image} alt={recipe.name} className="w-full h-full object-cover" />
+				</div>
+			)}
+			<div className="p-6 flex flex-col flex-1">
 			<div className="flex items-center justify-between mb-2">
 				<span className="text-xs font-semibold text-[#7a9e7e] uppercase tracking-wide">
 					{mealTypeLabel[recipe.mealType]}
@@ -55,6 +61,7 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
 			{recipe.storageNotes && (
 				<p className="mt-3 text-xs text-gray-400 italic">{recipe.storageNotes}</p>
 			)}
+			</div>
 		</div>
 	);
 }

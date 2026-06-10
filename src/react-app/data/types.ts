@@ -20,6 +20,7 @@ export type ShoppingCategory =
 export interface Recipe {
 	id: string;
 	name: string;
+	image?: string;
 	mealType: MealType;
 	prepTime: number;
 	cookTime: number;

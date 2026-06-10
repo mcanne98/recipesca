@@ -66,6 +66,7 @@ export const mealPlans: MealPlan[] = [
 			{
 				id: "sheet-pan-chicken-broccoli",
 				name: "Sheet Pan Chicken & Roasted Broccoli",
+				image: "/images/recipes/plated/sheet-pan-chicken-broccoli.jpg",
 				mealType: "dinner",
 				prepTime: 10,
 				cookTime: 30,
@@ -96,6 +97,7 @@ export const mealPlans: MealPlan[] = [
 			{
 				id: "beef-tacos",
 				name: "Simple Beef Tacos",
+				image: "/images/recipes/plated/simple-beef-tacos.jpg",
 				mealType: "dinner",
 				prepTime: 5,
 				cookTime: 15,
@@ -121,6 +123,7 @@ export const mealPlans: MealPlan[] = [
 			{
 				id: "overnight-oats",
 				name: "Overnight Oats",
+				image: "/images/recipes/plated/overnight-oats.jpg",
 				mealType: "breakfast",
 				prepTime: 5,
 				cookTime: 0,
@@ -145,6 +148,7 @@ export const mealPlans: MealPlan[] = [
 			{
 				id: "ground-beef-pasta",
 				name: "Ground Beef Pasta",
+				image: "/images/recipes/plated/ground-beef-pasta.jpg",
 				mealType: "dinner",
 				prepTime: 5,
 				cookTime: 25,
@@ -245,6 +249,7 @@ export const mealPlans: MealPlan[] = [
 			{
 				id: "simple-roast-chicken",
 				name: "Simple Sunday Roast Chicken",
+				image: "/images/recipes/plated/simple-roast-chicken.jpg",
 				mealType: "dinner",
 				prepTime: 10,
 				cookTime: 70,
@@ -275,6 +280,7 @@ export const mealPlans: MealPlan[] = [
 			{
 				id: "black-bean-rice-bowls",
 				name: "Black Bean & Rice Bowls",
+				image: "/images/recipes/plated/black-bean-rice-bowls.jpg",
 				mealType: "dinner",
 				prepTime: 5,
 				cookTime: 20,
@@ -298,6 +304,7 @@ export const mealPlans: MealPlan[] = [
 			{
 				id: "egg-fried-rice",
 				name: "Egg Fried Rice",
+				image: "/images/recipes/plated/egg-fried-rice.jpg",
 				mealType: "dinner",
 				prepTime: 5,
 				cookTime: 15,
@@ -327,6 +334,7 @@ export const mealPlans: MealPlan[] = [
 			{
 				id: "chicken-soup",
 				name: "Homemade Chicken Soup",
+				image: "/images/recipes/plated/homemade-chicken-soup.jpg",
 				mealType: "dinner",
 				prepTime: 10,
 				cookTime: 45,
