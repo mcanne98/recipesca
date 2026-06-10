@@ -280,6 +280,7 @@ export const mealPlans: MealPlan[] = [
 			{
 				id: "black-bean-rice-bowls",
 				name: "Black Bean & Rice Bowls",
+				image: "/images/recipes/plated/black-bean-rice-bowls.jpg",
 				mealType: "dinner",
 				prepTime: 5,
 				cookTime: 20,
@@ -303,6 +304,7 @@ export const mealPlans: MealPlan[] = [
 			{
 				id: "egg-fried-rice",
 				name: "Egg Fried Rice",
+				image: "/images/recipes/plated/egg-fried-rice.jpg",
 				mealType: "dinner",
 				prepTime: 5,
 				cookTime: 15,
@@ -332,6 +334,7 @@ export const mealPlans: MealPlan[] = [
 			{
 				id: "chicken-soup",
 				name: "Homemade Chicken Soup",
+				image: "/images/recipes/plated/homemade-chicken-soup.jpg",
 				mealType: "dinner",
 				prepTime: 10,
 				cookTime: 45,
