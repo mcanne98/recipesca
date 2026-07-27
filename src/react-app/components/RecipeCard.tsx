@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import type { Recipe } from "../data/types";
 import TagBadge from "./TagBadge";
 
@@ -25,7 +26,12 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
 				</span>
 				<span className="text-xs text-gray-400">{totalTime} min total</span>
 			</div>
-			<h3 className="text-lg font-bold text-[#1f2937] mb-3">{recipe.name}</h3>
+			<Link
+				to={`/recipes/${recipe.id}`}
+				className="text-lg font-bold text-[#1f2937] hover:text-[#e07030] transition-colors mb-3 block"
+			>
+				{recipe.name}
+			</Link>
 			<div className="flex flex-wrap gap-1.5 mb-4">
 				{recipe.tags.map((tag) => (
 					<TagBadge key={tag} tag={tag} />

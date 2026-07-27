@@ -1,10 +1,7 @@
 import { useState } from "react";
-import mealPlans from "../data/mealPlans";
-import { standaloneRecipes } from "../data/standaloneRecipes";
+import { allRecipes } from "../data/allRecipes";
 import type { MealType, Tag } from "../data/types";
 import RecipeCard from "../components/RecipeCard";
-
-const allRecipes = [...mealPlans.flatMap((p) => p.recipes), ...standaloneRecipes];
 
 const mealTypes: MealType[] = ["breakfast", "lunch", "dinner", "snack"];
 const allTags: Tag[] = [

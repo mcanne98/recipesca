@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import MealPlans from "./pages/MealPlans";
 import MealPlanDetail from "./pages/MealPlanDetail";
 import RecipeLibrary from "./pages/RecipeLibrary";
+import RecipeDetail from "./pages/RecipeDetail";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import "./index.css";
@@ -20,6 +21,7 @@ export default function App() {
 						<Route path="/meal-plans" element={<MealPlans />} />
 						<Route path="/meal-plans/:slug" element={<MealPlanDetail />} />
 						<Route path="/recipes" element={<RecipeLibrary />} />
+						<Route path="/recipes/:id" element={<RecipeDetail />} />
 						<Route path="/about" element={<About />} />
 						<Route path="/contact" element={<Contact />} />
 					</Routes>
