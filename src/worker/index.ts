@@ -43,6 +43,7 @@ app.use("/api/*", cors({ origin: "*" }));
 // Keep the original health route
 app.get("/api/", (c) => c.json({ name: "Week On Week Off Kitchen API" }));
 
+
 // ---------------------------------------------------------------------------
 // POST /api/subscribe
 // Body: { name: string, email: string }
