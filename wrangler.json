@@ -21,6 +21,7 @@
 	],
 	"vars": {
 		"NOTIFICATION_EMAIL": "ourlittlejar@gmail.com",
+		"SUMMARY_EMAIL": "mcanne98@gmail.com",
 		"FROM_EMAIL": "Week On Week Off Kitchen <hello@weekonweekoff.cedricanne.com>"
 	}
 }
