@@ -11,7 +11,7 @@ export default function MealPlans() {
 				</p>
 			</div>
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-				{mealPlans.map((plan) => (
+				{[...mealPlans].sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()).map((plan) => (
 					<MealPlanCard key={plan.id} plan={plan} />
 				))}
 			</div>
