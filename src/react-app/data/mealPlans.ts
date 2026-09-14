@@ -1566,7 +1566,7 @@ export const mealPlans: MealPlan[] = [
 		],
 		estimatedLeftovers:
 			"Extra taco beef goes into Saturday's hash. Extra rotisserie chicken covers Saturday lunch and Sunday dinner quesadillas. The quinoa salad covers Tuesday and Thursday lunches with some left over for snacking.",
-		publishedAt: "2026-09-21",
+		publishedAt: "2026-07-11",
 	},
 ];
 
