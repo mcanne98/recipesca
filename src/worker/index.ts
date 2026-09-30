@@ -235,6 +235,76 @@ app.post("/api/send-newsletter", async (c) => {
 });
 
 // ---------------------------------------------------------------------------
+// GET /api/likes?type=recipe|plan&id=<id>&fp=<fingerprint>
+// Returns { count, liked } for a given item + visitor fingerprint
+// ---------------------------------------------------------------------------
+app.get("/api/likes", async (c) => {
+	const type = c.req.query("type");
+	const id = c.req.query("id");
+	const fp = c.req.query("fp") ?? "";
+
+	if (!type || !id || (type !== "recipe" && type !== "plan")) {
+		return c.json({ error: "type (recipe|plan) and id are required." }, 400);
+	}
+
+	try {
+		const countKey = `likes:${type}:${id}`;
+		const dedupKey = `liked:${fp}:${type}:${id}`;
+		const [countRaw, likedRaw] = await Promise.all([
+			c.env.WOWOK_DATA.get(countKey),
+			fp ? c.env.WOWOK_DATA.get(dedupKey) : Promise.resolve(null),
+		]);
+		return c.json({ count: countRaw ? parseInt(countRaw, 10) : 0, liked: likedRaw === "1" });
+	} catch {
+		return c.json({ count: 0, liked: false });
+	}
+});
+
+// ---------------------------------------------------------------------------
+// POST /api/like
+// Body: { type: "recipe"|"plan", id: string, fp: string }
+// fp = browser-generated fingerprint for dedup (stored in localStorage)
+// ---------------------------------------------------------------------------
+app.post("/api/like", async (c) => {
+	let body: { type?: string; id?: string; fp?: string };
+	try {
+		body = await c.req.json();
+	} catch {
+		return c.json({ error: "Invalid JSON body." }, 400);
+	}
+
+	const { type, id, fp } = body;
+	if (!type || !id || (type !== "recipe" && type !== "plan")) {
+		return c.json({ error: "type (recipe|plan) and id are required." }, 400);
+	}
+	if (!fp) {
+		return c.json({ error: "fp (fingerprint) is required." }, 400);
+	}
+
+	const countKey = `likes:${type}:${id}`;
+	const dedupKey = `liked:${fp}:${type}:${id}`;
+	const ttl = 60 * 60 * 24 * 365 * 10;
+
+	try {
+		const alreadyLiked = await c.env.WOWOK_DATA.get(dedupKey);
+		if (alreadyLiked) {
+			const count = parseInt((await c.env.WOWOK_DATA.get(countKey)) ?? "0", 10);
+			return c.json({ count, liked: true, duplicate: true });
+		}
+
+		const current = parseInt((await c.env.WOWOK_DATA.get(countKey)) ?? "0", 10);
+		const newCount = current + 1;
+		await Promise.all([
+			c.env.WOWOK_DATA.put(countKey, String(newCount), { expirationTtl: ttl }),
+			c.env.WOWOK_DATA.put(dedupKey, "1", { expirationTtl: ttl }),
+		]);
+		return c.json({ count: newCount, liked: true });
+	} catch {
+		return c.json({ error: "KV unavailable." }, 503);
+	}
+});
+
+// ---------------------------------------------------------------------------
 // POST /api/contact
 // Body: { name: string, email: string, message: string }
 // ---------------------------------------------------------------------------

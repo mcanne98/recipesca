@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import type { MealPlan } from "../data/types";
 import TagBadge from "./TagBadge";
+import LikeButton from "./LikeButton";
 
 // Warm gradient "food photo" backgrounds for each card
 const cardGradients = [
@@ -105,10 +106,11 @@ export default function MealPlanCard({ plan, index = 0, variant = "default" }: P
 						</span>
 					</div>
 
-					<div className="mt-4">
+					<div className="mt-4 flex items-center justify-between">
 						<span className="text-[#e07030] font-bold text-sm group-hover:underline">
 							View full plan →
 						</span>
+						<LikeButton type="plan" id={plan.slug} size="sm" />
 					</div>
 				</div>
 			</div>
