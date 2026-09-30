@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import mealPlans from "../data/mealPlans";
 import TagBadge from "../components/TagBadge";
+import LikeButton from "../components/LikeButton";
 import MealPlanTable from "../components/MealPlanTable";
 import ShoppingList from "../components/ShoppingList";
 import PrepSchedule from "../components/PrepSchedule";
@@ -42,7 +43,10 @@ export default function MealPlanDetail() {
 						))}
 					</div>
 					<h1 className="text-3xl md:text-5xl font-bold mb-3">{plan.title}</h1>
-					<p className="text-gray-300 text-lg mb-6">{plan.subtitle}</p>
+					<p className="text-gray-300 text-lg mb-4">{plan.subtitle}</p>
+					<div className="mb-4">
+						<LikeButton type="plan" id={plan.slug} />
+					</div>
 					<div className="flex flex-wrap gap-6 text-sm text-gray-300">
 						<span>⏱️ Prep: {plan.prepTime}</span>
 						<span>👨‍👧‍👦 {plan.familySize}</span>

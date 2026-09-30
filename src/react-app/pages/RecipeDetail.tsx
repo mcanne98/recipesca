@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { findRecipeById } from "../data/allRecipes";
 import TagBadge from "../components/TagBadge";
+import LikeButton from "../components/LikeButton";
 
 const mealTypeLabel: Record<string, string> = {
 	breakfast: "☀️ Breakfast",
@@ -74,6 +75,9 @@ export default function RecipeDetail() {
 						))}
 					</div>
 					<h1 className="text-3xl sm:text-4xl font-black text-white leading-tight">{recipe.name}</h1>
+					<div className="mt-3 mb-1">
+						<LikeButton type="recipe" id={recipe.id} />
+					</div>
 					<div className="flex flex-wrap gap-4 mt-3 text-sm text-gray-300">
 						<span>⏱ Prep: {formatTime(recipe.prepTime)}</span>
 						<span>🔥 Cook: {formatTime(recipe.cookTime)}</span>
