@@ -4,9 +4,13 @@ export type Tag =
 	| "Kid Approved"
 	| "Freezer Friendly"
 	| "Vegetarian"
-	| "Quick Prep";
+	| "Quick Prep"
+	| "Holiday"
+	| "Gluten Free"
+	| "Vegan"
+	| "Make Ahead";
 
-export type MealType = "breakfast" | "lunch" | "dinner" | "snack";
+export type MealType = "breakfast" | "lunch" | "dinner" | "snack" | "dessert";
 
 export type ShoppingCategory =
 	| "Produce"

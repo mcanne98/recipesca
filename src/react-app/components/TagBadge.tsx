@@ -7,6 +7,10 @@ const tagStyles: Record<Tag, string> = {
 	"Freezer Friendly": "bg-blue-500 text-white",
 	"Vegetarian": "bg-green-500 text-white",
 	"Quick Prep": "bg-purple-500 text-white",
+	"Holiday": "bg-red-700 text-white",
+	"Gluten Free": "bg-teal-500 text-white",
+	"Vegan": "bg-emerald-600 text-white",
+	"Make Ahead": "bg-indigo-500 text-white",
 };
 
 export default function TagBadge({ tag }: { tag: Tag }) {
