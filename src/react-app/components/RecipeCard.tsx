@@ -7,6 +7,7 @@ const mealTypeLabel: Record<Recipe["mealType"], string> = {
 	lunch: "🥗 Lunch",
 	dinner: "🍽️ Dinner",
 	snack: "🍎 Snack",
+	dessert: "🍰 Dessert",
 };
 
 export default function RecipeCard({ recipe }: { recipe: Recipe }) {
