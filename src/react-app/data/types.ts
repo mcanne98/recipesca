@@ -21,6 +21,18 @@ export type ShoppingCategory =
 	| "Snacks"
 	| "Other";
 
+export interface Nutrition {
+	calories: number;
+	protein: number;
+	carbs: number;
+	fat: number;
+	fiber: number;
+	sugar: number;
+	saturatedFat: number;
+	sodium: number;
+	cholesterol: number;
+}
+
 export interface Recipe {
 	id: string;
 	name: string;
@@ -32,6 +44,7 @@ export interface Recipe {
 	ingredients: string[];
 	instructions: string[];
 	tags: Tag[];
+	nutrition?: Nutrition;
 	storageNotes?: string;
 	reheatingNotes?: string;
 	substitutions?: string[];

@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { findRecipeById } from "../data/allRecipes";
 import TagBadge from "../components/TagBadge";
 import LikeButton from "../components/LikeButton";
+import NutritionPanel from "../components/NutritionPanel";
 
 const mealTypeLabel: Record<string, string> = {
 	breakfast: "☀️ Breakfast",
@@ -116,6 +117,9 @@ export default function RecipeDetail() {
 
 					{/* Instructions — wider column */}
 					<div className="md:col-span-3">
+						{recipe.nutrition && (
+							<NutritionPanel nutrition={recipe.nutrition} baseServings={recipe.servings} />
+						)}
 						<h2 className="text-xl font-black text-[#1f2937] mb-5">Instructions</h2>
 						<ol className="space-y-5">
 							{recipe.instructions.map((step, i) => {
