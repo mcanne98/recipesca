@@ -10,6 +10,15 @@ const mealTypeLabel: Record<Recipe["mealType"], string> = {
 	dessert: "🍰 Dessert",
 };
 
+function MacroPill({ label, value, unit, color }: { label: string; value: number; unit: string; color: string }) {
+	return (
+		<div className="flex flex-col items-center bg-gray-50 rounded-xl py-1.5 px-1">
+			<span className="text-sm font-black" style={{ color }}>{Math.round(value * 10) / 10}{unit}</span>
+			<span className="text-[10px] text-gray-400 font-medium uppercase tracking-wide">{label}</span>
+		</div>
+	);
+}
+
 export default function RecipeCard({ recipe }: { recipe: Recipe }) {
 	const totalTime = recipe.prepTime + recipe.cookTime;
 
@@ -38,6 +47,14 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
 					<TagBadge key={tag} tag={tag} />
 				))}
 			</div>
+			{recipe.nutrition && (
+				<div className="grid grid-cols-4 gap-1.5 mb-4">
+					<MacroPill label="Cal" value={recipe.nutrition.calories} unit="" color="#e07030" />
+					<MacroPill label="Pro" value={recipe.nutrition.protein} unit="g" color="#e07030" />
+					<MacroPill label="Carbs" value={recipe.nutrition.carbs} unit="g" color="#4f8ef7" />
+					<MacroPill label="Fat" value={recipe.nutrition.fat} unit="g" color="#f5b942" />
+				</div>
+			)}
 			<div className="mb-4">
 				<h4 className="text-sm font-semibold text-[#1f2937] mb-2">Ingredients</h4>
 				<ul className="text-sm text-gray-600 space-y-1">
