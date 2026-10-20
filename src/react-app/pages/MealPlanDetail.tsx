@@ -7,6 +7,7 @@ import ShoppingList from "../components/ShoppingList";
 import PrepSchedule from "../components/PrepSchedule";
 import RecipeCard from "../components/RecipeCard";
 import SubscribeCTA from "../components/SubscribeCTA";
+import PlanNutritionSummary from "../components/PlanNutritionSummary";
 
 export default function MealPlanDetail() {
 	const { slug } = useParams<{ slug: string }>();
@@ -63,6 +64,9 @@ export default function MealPlanDetail() {
 						{plan.intro}
 					</p>
 				</section>
+
+				{/* Nutrition Summary */}
+				<PlanNutritionSummary recipes={plan.recipes} />
 
 				{/* 7-Day Table */}
 				<section>
